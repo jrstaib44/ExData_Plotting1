@@ -1,0 +1,8 @@
+power <- read.table("household_power_consumption.txt", sep=";", header=TRUE)
+power$Date <- as.Date(power$Date, "%d/%m/%Y")
+powersub <- filter(power, Date >= "2007-02-01" & Date <= "2007-02-02")
+powersub$newdate <- as.POSIXct(paste(powersub$Date,powersub$Time), format="%Y-%m-%d %H:%M:%S")
+options(digits=4)
+hist(as.numeric(as.character(powersub$Global_active_power)), col="red", main="Global Active Power", xlab = "Global Active Power (kilowatts)")
+dev.copy(png, file = "Plot1.png")
+dev.off()
